@@ -19,16 +19,24 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
 	if(!faction) return(message.channel.send('No Arrgument provided!'));
 	faction = faction.toLowerCase();
 
-
+/*  Not used yet
 	function getRole(name) {
 		let role = message.guild.roles.find('name', name);
 		return (role);
 	}
+*/
 
+	if(faction == 'civ') {
+		let civ_role = message.guild.roles.find('name', 'Civ builder');
+		message.member.addRole(civ_role);
+		message.channel.send('<'+message.author+'> You have successfully registered for our Civilization 6 Group');
+	}
+	
 	if(faction == 'court') {
 		//EmbersCourt
 		//await role = getRole('EmbersCourt')
-		message.member.addRole(role);
+		let court_role = message.guild.roles.find('name', 'EmbersCourt');
+		message.member.addRole(court_role);
 		message.channel.send('<'+message.author+'> You have successfully registered for our Courtroom RP channel!');
 		return;
 	}
