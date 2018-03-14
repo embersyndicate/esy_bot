@@ -25,14 +25,16 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
 		return (role);
 	}
 <<<<<<< HEAD
-	var factionFound = false;
+	
 =======
 */
-
+	var factionFound = false;
 	if(faction == 'civ') {
 		let civ_role = message.guild.roles.find('name', 'Civ builder');
 		message.member.addRole(civ_role);
 		message.channel.send('<'+message.author+'> You have successfully registered for our Civilization 6 Group');
+		factionFound = true;
+		return;
 	}
 	
 >>>>>>> 715ebba49e019ca85617b65437a7b292e3b62774
