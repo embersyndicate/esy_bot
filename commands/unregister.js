@@ -95,4 +95,5 @@ exports.run = async (client, message, args, level) => {
 		message.channel.send('<'+message.author+'> `You have successfully unregistered from our VS outfir!');
 		return;
 	}
+	message.channel.send("Sorry we couldn't find what channel you wanted to unregister from!\n If you need help simply type !help unregister");
 }
