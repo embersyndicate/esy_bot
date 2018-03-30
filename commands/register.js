@@ -10,80 +10,19 @@ exports.help = {
   name: "register",
   category: "PS2 Outfit",
   description: "Used to register on discord. If you registering for a game no username used!",
-  usage: "reg <Faction><username> | reg <game> | reg <channel>\nAcceptable Faction: NC, VS, TR\nAcceptable Games: ARK, SE, MC, DND, ROK\nAcceptable channels: NSFW COURT\nEx: !reg NC ingame_Name | !reg ark | !reg NSFW"
+  usage: "reg ps2 <faction> <username> | reg <game> | reg <channel>\nAcceptable Faction: NC, VS, TR\nAcceptable Games: ARK, SE, MC, DND, ROK,PIX,CIV,PS2\nAcceptable channels: NSFW COURT\nEx: !reg ps2 NC ingame_Name | !reg ark | !reg NSFW"
 };
 
 exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
 	var request = require("request");
-	var faction = args[0];
-	if(!faction) return(message.channel.send('No Arrgument provided!'));
+	var  = args[0];
+	if(!faction) return(message.channel.send('No Arrgument provided! Need help? Try !help register.'));
 	faction = faction.toLowerCase();
 	// pass data to factionCheck
 	factionCheck(faction);
 	//Switch to figure out what reg we need
 	
 /*	
-	if(faction == 'civ') {
-		let civ_role = message.guild.roles.find('name', 'Civ builder');
-		message.member.addRole(civ_role);
-		message.channel.send('<'+message.author+'> You have successfully registered for our Civilization 6 Group');
-	}
-	
-	if(faction == 'court') {
-		//EmbersCourt
-		//await role = getRole('EmbersCourt')
-		let court_role = message.guild.roles.find('name', 'EmbersCourt');
-		message.member.addRole(court_role);
-		message.channel.send('<'+message.author+'> You have successfully registered for our Courtroom RP channel!');
-		return;
-	}
-
-	if(faction == 'mc') {
-		//EmberCraft
-		let mc_role = message.guild.roles.find('name', 'EmberCraft');
-		message.member.addRole(mc_role);
-		message.channel.send('<'+message.author+'> You have successfully registered for our Minecraft server!');
-		return;
-	}
-
-	if(faction == 'nsfw') {
-		//NSFW
-			let nsfw_role = getRole('nsfw');
-			message.member.addRole(nsfw_role);
-			message.channel.send('<'+message.author+'> You have registered for the NSFW 18+ channel.\nIf you are not of the age of 18 please don\'t enter the channel');
-	}
-
-	if(faction == 'rok') {
-		//ROK
-		let rok_role = message.guild.roles.find('name', 'Rok member');
-		message.member.addRole(rok_role);
-		message.channel.send('<'+message.author+"> You have successfully registered for our Reign of Kings");
-		return;
-	}
-
-	if(faction == 'dnd') {
-		//ROK
-	let rdnd_role = message.guild.roles.find('name', 'DnD Nerds');
-	message.member.addRole(dnd_role);
-	message.channel.send('<'+message.author+"> You have successfully registered for Dungeon and Dragons");
-		return;
-	}
-
-	if(faction == 'ark') {
-		//Ark Survivalist
-		let ark_role = message.guild.roles.find('name', 'Ark Survivalist');
-		message.member.addRole(ark_role);
-		message.channel.send('<'+message.author+'> You hace successfully registered for our ARK Survival Evolved server!');
-		return;
-	}
-
-	if(faction == 'se') {
-		//Space Engineer
-		let se_role = message.guild.roles.find("name", "Space Engineer");
-		message.member.addRole(se_role);
-		message.channel.send('<'+message.author+'> You have successfully registered for our Space Engineers server!');
-		return;
-	}
 	var obj = client.config.factions;
 	for (var key in obj) {
 		if(key == faction) {
@@ -139,6 +78,19 @@ return;
 
 function factionCheck(faction) {
 	switch (faction) {
+		case 'ps2':
+			var obj = client.config.factions;
+			for (var key in obj) {
+				if(key == faction) {
+					var user = args[2];
+					if(!user) return(message.channel.send('No username provided!'));
+					//set faction ID
+					var fID = client.config.factions[faction];
+					//prepare request url
+					var req_url = "https://census.daybreakgames.com/s:embersyndicate/get/ps2:v2/character?name.first="+user+"&faction_id="+fID+"&c:resolve=outfit_member_extended";
+				}
+			}
+			break;
 
 		case 'civ': 
 			if (setRole('Civ builder')) {
@@ -160,60 +112,80 @@ function factionCheck(faction) {
 
 		case 'mc':
 			if (setRole('EmberCraft')) {
-					message.channel.send('success');
-					break;
+				message.channel.send('success');
+				break;
 			} else {
-					message.channel.send('There was an error please contact DJDeath!');
-					break;
+				message.channel.send('There was an error please contact DJDeath!');
+				break;
 			}
 
 		case 'nsfw':
 			if (setRole('nsfw')) {
-					message.channel.send('success');
-					break;
+				message.channel.send('success');
+				break;
 			} else {
-					message.channel.send('There was an error please contact DJDeath!');
-					break;
+				message.channel.send('There was an error please contact DJDeath!');
+				break;
 			}
 
 		case 'rok':
 			if (setRole('Rok member')) {
-					message.channel.send('success');
-					break;
+				message.channel.send('success');
+				break;
 			} else {
-					message.channel.send('There was an error please contact DJDeath!');
-					break;
+				message.channel.send('There was an error please contact DJDeath!');
+				break;
 			}
 
 		case 'dnd':
 			if (setRole('DnD Nerds')) {
-					message.channel.send('success');
-					break;
+				message.channel.send('success');
+				break;
 			} else {
-					message.channel.send('There was an error please contact DJDeath!');
-					break;
+				message.channel.send('There was an error please contact DJDeath!');
+				break;
 			}
 
 		case 'ark':
 			if (setRole('Ark Survivalist')) {
-					message.channel.send('success');
-					break;
+				message.channel.send('success');
+				break;
 			} else {
-					message.channel.send('There was an error please contact DJDeath!');
-					break;
+				message.channel.send('There was an error please contact DJDeath!');
+				break;
 			}
+
+		case 'se':
+			if (setRole('Space Engineer')) {
+				message.channel.send('success');
+				break;
+			} else {
+				message.channel.send('There was an error please contact DJDeath!');
+				break;
+			}
+
+		case 'pix':
+			if (setRole('PixARK')) {
+				message.channel.send('success');
+				break;
+			} else {
+				message.channel.send('There was an error please contact DJDeath!');
+				break;
+			}
+		default:
+			message.channel.send('You must provide a faction, channel, or server. Need help? Try !help register.');
+			break;
 	}
 }
 
 
 	function setRole(name) {
 		let role = message.guild.roles.find('name', name);
-		try{
-			message.member.addRole(role).then(messages => client.logger.log('Role '+name+' added to '+message.member.displayName));
-		} catch (err) {
-			client.logger.error(err);
+		if (role == null) {
 			return false;
+		} else {
+			message.member.addRole(role).then(messages => client.logger.log('Role '+name+' added to '+message.member.displayName));	
+			return true;
 		}
-		return true;
 	}
 }
