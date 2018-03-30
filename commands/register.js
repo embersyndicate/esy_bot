@@ -36,8 +36,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
 		factionFound = true;
 		return;
 	}
-	
->>>>>>> 715ebba49e019ca85617b65437a7b292e3b62774
+
 	if(faction == 'court') {
 		//EmbersCourt
 		//await role = getRole('EmbersCourt')
