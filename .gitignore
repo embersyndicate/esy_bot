@@ -63,3 +63,6 @@ typings/
 
 # Sublime Text files
 .eslintrc.json
+package.json
+config.js
+package-lock.json
