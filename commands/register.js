@@ -18,14 +18,11 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
 	var faction = args[0];
 	if(!faction) return(message.channel.send('No Arrgument provided!'));
 	faction = faction.toLowerCase();
-
-/*  Not used yet
-	function getRole(name) {
-		let role = message.guild.roles.find('name', name);
-		return (role);
-	}
-*/
-
+	// pass data to factionCheck
+	factionCheck(faction);
+	//Switch to figure out what reg we need
+	
+/*	
 	if(faction == 'civ') {
 		let civ_role = message.guild.roles.find('name', 'Civ builder');
 		message.member.addRole(civ_role);
@@ -64,11 +61,11 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
 		return;
 	}
 
-		if(faction == 'dnd') {
+	if(faction == 'dnd') {
 		//ROK
-		let rok_role = message.guild.roles.find('name', 'DnD Nerds');
-		message.member.addRole(rok_role);
-		message.channel.send('<'+message.author+"> You have successfully registered for Dungeon and Dragons");
+	let rdnd_role = message.guild.roles.find('name', 'DnD Nerds');
+	message.member.addRole(dnd_role);
+	message.channel.send('<'+message.author+"> You have successfully registered for Dungeon and Dragons");
 		return;
 	}
 
@@ -137,5 +134,86 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
 			});			
 		}
 	}// end of for	
-	return;
-};
+*/
+return;
+
+function factionCheck(faction) {
+	switch (faction) {
+
+		case 'civ': 
+			if (setRole('Civ builder')) {
+				message.channel.send('<'+message.author+' You have successfully for Civilization 6!');
+				break;
+			}  else {
+				message.channel.send('There was an error please contact DJDeath!');
+				break;
+			}
+
+		case 'court':
+			if (setRole('EmbersCourt')) {
+				message.channel.send('success');
+				break;
+			} else {
+				message.channel.send('There was an error please contact DJDeath!');
+				break;
+			}
+
+		case 'mc':
+			if (setRole('EmberCraft')) {
+					message.channel.send('success');
+					break;
+			} else {
+					message.channel.send('There was an error please contact DJDeath!');
+					break;
+			}
+
+		case 'nsfw':
+			if (setRole('nsfw')) {
+					message.channel.send('success');
+					break;
+			} else {
+					message.channel.send('There was an error please contact DJDeath!');
+					break;
+			}
+
+		case 'rok':
+			if (setRole('Rok member')) {
+					message.channel.send('success');
+					break;
+			} else {
+					message.channel.send('There was an error please contact DJDeath!');
+					break;
+			}
+
+		case 'dnd':
+			if (setRole('DnD Nerds')) {
+					message.channel.send('success');
+					break;
+			} else {
+					message.channel.send('There was an error please contact DJDeath!');
+					break;
+			}
+
+		case 'ark':
+			if (setRole('Ark Survivalist')) {
+					message.channel.send('success');
+					break;
+			} else {
+					message.channel.send('There was an error please contact DJDeath!');
+					break;
+			}
+	}
+}
+
+
+	function setRole(name) {
+		let role = message.guild.roles.find('name', name);
+		try{
+			message.member.addRole(role).then(messages => client.logger.log('Role '+name+' added to '+message.member.displayName));
+		} catch (err) {
+			client.logger.error(err);
+			return false;
+		}
+		return true;
+	}
+}
