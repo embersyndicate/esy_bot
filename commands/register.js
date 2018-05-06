@@ -56,8 +56,10 @@ function gameCheck(game) {
 							var clist = body.character_list[0];
 							// check if member is in an outfit if not break
 							if(clist.outfit_member == 'undefined') return(message.channel.send('<'+message.author+'> Sorry I couldn\'t find a user in an outfit with that username. Need help? Try !hep register.'));
+
 							// check that outfit_id is set if not break
 							if(clist.outfit_member.outfit_id == 'undefined') return(message.channel.send('<'+message.author+'> Sorry I couldn\'t find a user in an outfit with that username. Need help? Try !hep register.'));
+
 							// Check if user is in ESY
 							if (clist.outfit_member.outfit_id == client.config.outfitIds[faction]) {
 
@@ -202,4 +204,3 @@ function gameCheck(game) {
 			return true;
 		}
 	}
-}
