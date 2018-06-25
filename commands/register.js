@@ -10,7 +10,7 @@ exports.help = {
   name: "register",
   category: "PS2 Outfit",
   description: "Used to register on discord. If you registering for a game no username used!",
-  usage: "reg ps2 <faction> <username> | reg <game> | reg <channel>\nAcceptable Faction: NC, VS, TR\nAcceptable Games: ARK, SE, MC, DND, ROK,PIX,CIV,PS2\nAcceptable channels: NSFW COURT\nEx: !reg ps2 NC ingame_Name | !reg ark | !reg NSFW"
+  usage: "reg ps2 <faction> <username> | reg <game> | reg <channel>\nAcceptable Faction: NC, VS, TR\nAcceptable Games: ARK, SE, MC, DND, ROK, PIX, CIV, PS2, ARMA, DOTA, GW2\nAcceptable channels: NSFW COURT\nEx: !reg ps2 NC ingame_Name | !reg ark | !reg NSFW"
 };
 
 exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
@@ -19,25 +19,26 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
 	if(!game) return(message.channel.send('No Arrgument provided! Need help? Try !help register.'));
 	game = game.toLowerCase();
 	// pass data to factionCheck
-	gameCheck(game);	
-return;
+	gameCheck(game,message);	
+	return;
 
-function gameCheck(game) {
-	switch (game) {
-		case 'ps2':
-			var obj = client.config.factions;
-			var faction = args[1];
-			faction = faction.toLowerCase();
-			//Make sure the faction matches the avaliable factions or break
-			if (!['tr','vs','nc'].includes(faction)) return(message.channel.send('Please provide a valid faction. Need help? Try !help register.'));
-			// For loop to cycle through the diffrent factions also allowing us to pull outfit ID's by what faction the for loop is checking
-			for (var key in obj) {
-				if(key == faction) {
-					var user = args[2];
-					if (!user) {
-						message.channel.send('No username provided! Need help? Try !help register.');
-						return;
-					}
+	function gameCheck(game,message) {
+	
+		switch (game) {
+			case 'ps2':
+				var obj = client.config.factions;
+				var faction = args[1];
+				faction = faction.toLowerCase();
+				//Make sure the faction matches the avaliable factions or break
+				if (!['tr','vs','nc'].includes(faction)) return(message.channel.send('Please provide a valid faction. Need help? Try !help register.'));
+				// For loop to cycle through the diffrent factions also allowing us to pull outfit ID's by what faction the for loop is checking
+					for (var key in obj) {
+						if(key == faction) {
+							var user = args[2];
+						if (!user) {
+							message.channel.send('No username provided! Need help? Try !help register.');
+							return;
+						}
 					//set faction ID
 					var fID = client.config.factions[faction];
 					//prepare request url
@@ -56,10 +57,8 @@ function gameCheck(game) {
 							var clist = body.character_list[0];
 							// check if member is in an outfit if not break
 							if(clist.outfit_member == 'undefined') return(message.channel.send('<'+message.author+'> Sorry I couldn\'t find a user in an outfit with that username. Need help? Try !hep register.'));
-
 							// check that outfit_id is set if not break
 							if(clist.outfit_member.outfit_id == 'undefined') return(message.channel.send('<'+message.author+'> Sorry I couldn\'t find a user in an outfit with that username. Need help? Try !hep register.'));
-
 							// Check if user is in ESY
 							if (clist.outfit_member.outfit_id == client.config.outfitIds[faction]) {
 
@@ -108,6 +107,42 @@ function gameCheck(game) {
 				} 
 			}
 			break;
+			
+		case 'arma':
+		if (setRole('ARMA')) {
+				message.channel.send('<'+message.author+'> You have successfully registered for our Arma channels!');
+				break;
+			}  else {
+				message.channel.send('There was an error please contact DJDeath!');
+				break;
+			}
+			
+		case 'pixark':
+		if (setRole('PixARK')) {
+				message.channel.send('<'+message.author+'> You have successfully registered for our PixARK channels!');
+				break;
+			}  else {
+				message.channel.send('There was an error please contact DJDeath!');
+				break;
+			}
+			
+		case 'dota':
+		if (setRole('DOTA')) {
+				message.channel.send('<'+message.author+'> You have successfully registered for our DOTA channels!');
+				break;
+			}  else {
+				message.channel.send('There was an error please contact DJDeath!');
+				break;
+			}
+			
+		case 'gw2':
+		if (setRole('Guild Wars 2')) {
+				message.channel.send('<'+message.author+'> You have successfully registered for our Guild Wars 2 channels!');
+				break;
+			}  else {
+				message.channel.send('There was an error please contact DJDeath!');
+				break;
+			}
 
 		case 'civ': 
 			if (setRole('Civ builder')) {
@@ -195,12 +230,13 @@ function gameCheck(game) {
 	}
 }
 
-	function setRole(name) {
-		let role = message.guild.roles.find('name', name);
+function setRole(name) {
+	let role = message.guild.roles.find('name', name);
 		if (role == null) {
 			return false;
 		} else {
 			message.member.addRole(role).then(messages => client.logger.log('Role '+name+' added to '+message.member.displayName));	
 			return true;
 		}
-	}
+}
+}
