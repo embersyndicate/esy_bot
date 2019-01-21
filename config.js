@@ -14,13 +14,13 @@ const config = {
     'tr': '37551978648976217'
   },
   // Bot Admins, level 9 by default. Array of user ID strings.
-  "admins": ['288764978335318016'],
+  "admins": [],
 
   // Bot Support, level 8 by default. Array of user ID strings
   "support": [],
 
   // Your Bot's Token. Available on https://discordapp.com/developers/applications/me
-  "token": "NDA0ODIxMzAzNTc3ODA0ODAy.DUlKIA.W3MalWZygsiazoFhk94vdk_tlfc",
+  "token": "BOTTOKENHERE",
 
 
   // Default per-server settings. New guilds have these settings. 
